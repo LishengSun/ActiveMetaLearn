@@ -1,0 +1,5 @@
+usage = 'Meta Learning'
+name = 'OpenMLMatthias'
+metric = 'Accuracy'
+source = 'From results.zip, sent by Matthias in person, used in their 2015 AAAI paper'
+processed = No. (Same as /ORIGINAL_DATA/OpenML/)
