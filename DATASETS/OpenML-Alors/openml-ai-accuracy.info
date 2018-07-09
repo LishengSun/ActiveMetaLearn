@@ -1,0 +1,5 @@
+usage = 'Meta Learning'
+name = 'OpenMLAlors'
+metric = 'Accuracy'
+source = 'https://www.lri.fr/~sebag/Alors/as_datasets/openml-ai-accuracy.csv'
+processed = No
