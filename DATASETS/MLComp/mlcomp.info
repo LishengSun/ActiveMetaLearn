@@ -1,5 +1,0 @@
-usage = 'Meta Learning'
-name = 'MLcomp'
-metric = 'Error'
-source = 'http://mlcomp.org/download/runs.txt'
-processed = Yes (run process_MLComp.py to cut a dense part from /ORIGINAL_DATA/MLComp/mlcomp.data)
