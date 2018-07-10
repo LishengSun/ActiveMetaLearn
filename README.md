@@ -20,4 +20,4 @@ make -f CofiRank-Makefile.mk CONF=Deploy (compile)
 See our [ipython notebook](https://github.com/LishengSun/ActiveMetaLearn/blob/master/DEMONSTRATION/performance-matrix-visualization.ipynb)
 
 ## III. Run experiments
-Coming soon
+Uploading ...
