@@ -1,0 +1,174 @@
+Starting up
+Configuration file used: config/ALLOpenML-Alors_train.cfg
+Evaluation Mode: WEAK
+Problem:: we have 76 rows and 292 columns in D
+Problem: Reading train data from data/lisheng-data/train/ALLOpenML-Alors_train.lsvm
+Problem: Reading test data from data/lisheng-data/train/ALLOpenML-Alors_test.lsvm
+NDCGEvaluator: k is bigger than Y.size1(). Using Y.size1() as k.
+DomainModelFactory::DomainModelFactory: Using REGRESSION
+COFIBMRM: User Phase started in iteration 0
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 0
+Found better M in iteration 0
+COFIBMRM: User Phase started in iteration 1
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 1
+Found better M in iteration 1
+COFIBMRM: User Phase started in iteration 2
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 2
+Found better M in iteration 2
+COFIBMRM: User Phase started in iteration 3
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 3
+COFIBMRM: User Phase started in iteration 4
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 4
+Found better M in iteration 4
+COFIBMRM: User Phase started in iteration 5
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 5
+Found better M in iteration 5
+COFIBMRM: User Phase started in iteration 6
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 6
+Found better M in iteration 6
+COFIBMRM: User Phase started in iteration 7
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 7
+COFIBMRM: User Phase started in iteration 8
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 8
+Found better M in iteration 8
+COFIBMRM: User Phase started in iteration 9
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 9
+Found better M in iteration 9
+COFIBMRM: User Phase started in iteration 10
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 10
+COFIBMRM: User Phase started in iteration 11
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 11
+COFIBMRM: User Phase started in iteration 12
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 12
+COFIBMRM: User Phase started in iteration 13
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 13
+COFIBMRM: User Phase started in iteration 14
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 14
+COFIBMRM: User Phase started in iteration 15
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 15
+Found better M in iteration 15
+COFIBMRM: User Phase started in iteration 16
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 16
+COFIBMRM: User Phase started in iteration 17
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 17
+COFIBMRM: User Phase started in iteration 18
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 18
+COFIBMRM: User Phase started in iteration 19
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 19
+COFIBMRM: User Phase started in iteration 20
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 20
+Found better M in iteration 20
+COFIBMRM: User Phase started in iteration 21
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 21
+COFIBMRM: User Phase started in iteration 22
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 22
+COFIBMRM: User Phase started in iteration 23
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 23
+COFIBMRM: User Phase started in iteration 24
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 24
+COFIBMRM: User Phase started in iteration 25
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 25
+Found better M in iteration 25
+COFIBMRM: User Phase started in iteration 26
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 26
+COFIBMRM: User Phase started in iteration 27
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 27
+COFIBMRM: User Phase started in iteration 28
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 28
+COFIBMRM: User Phase started in iteration 29
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 29
+COFIBMRM: User Phase started in iteration 30
+COFIBMRM: UserPhase finished 
+COFIBMRM: Movie Phase started in iteration 30
+cofi::Problem::save(): Save is disabled. 
+Usage statistics of configuration fields:
+type , name , readCount, writeCount
+double , bmrm.epsilonTol , 0 , 1
+double , bmrm.gammaTol , 0 , 1
+double , bmrm.minOptimProgress , 2387 , 1
+double , bmrm.minProgress , 2387 , 1
+double , bmrm.minRelativeOptimProgress , 2387 , 1
+double , bmrm.minRelativeProgress , 2387 , 1
+double , cofi.adaptiveRegularization.uExponent , 0 , 2
+double , cofi.adaptiveRegularization.wExponent , 0 , 2
+double , cofi.allowedDivergence , 1 , 1
+double , cofi.iterator.dense.defaultvalue , 0 , 1
+double , cofi.minProgress , 0 , 1
+double , cofi.minRelativeProgress , 0 , 1
+double , cofi.moviephase.lambda , 1 , 2
+double , cofi.userphase.lambda , 1 , 2
+double , loss.ndcg.c_exponent , 0 , 2
+double , loss.weightedSoftMargin.negativeWeight , 0 , 1
+double , loss.weightedSoftMargin.positiveWeight , 0 , 1
+double , sgd.initialStepSize , 0 , 1
+double , sgd.minRelativeProgress , 0 , 1
+int    , bmrm.maxIter , 0 , 1
+int    , bmrm.maxNumberOfIterations , 2387 , 1
+int    , cofi.dimW , 1 , 2
+int    , cofi.eval.binary , 1 , 2
+int    , cofi.eval.brmse , 0 , 1
+int    , cofi.eval.evaluateOnTestSet , 1 , 1
+int    , cofi.eval.evaluateOnTrainSet , 1 , 1
+int    , cofi.eval.ir , 0 , 1
+int    , cofi.eval.mse , 1 , 2
+int    , cofi.eval.ndcg , 1 , 2
+int    , cofi.eval.ndcg.k , 1 , 2
+int    , cofi.eval.norm , 1 , 1
+int    , cofi.kdd09.bmrmqueryphase , 0 , 1
+int    , cofi.maxIterations , 1 , 2
+int    , cofi.minIterations , 1 , 2
+int    , cofi.sequentialuserphase , 0 , 1
+int    , cofi.storeF , 1 , 2
+int    , cofi.storeM , 0 , 2
+int    , cofi.storeModel , 1 , 2
+int    , cofi.storeU , 0 , 2
+int    , cofi.useAdaptiveRegularization , 1 , 2
+int    , cofi.useGraphKernel , 1 , 2
+int    , cofi.useMovieOffset , 1 , 1
+int    , cofi.useOffset , 0 , 1
+int    , cofi.useSigmaRegularizer , 0 , 1
+int    , cofi.useUserOffset , 1 , 1
+int    , loss.ndcg.trainK , 0 , 2
+int    , sgd.maxNumberOfIterations , 0 , 1
+string , bmrm.innerSolver , 0 , 1
+string , cofi.codePath , 1 , 1
+string , cofi.iterator , 0 , 1
+string , cofi.loss , 1 , 2
+string , cofi.outfolder , 2 , 1
+string , cofi.regularizer , 0 , 1
+string , cofi.solver , 0 , 1
+string , cofibmrm.DtestFile , 1 , 1
+string , cofibmrm.DtrainFile , 1 , 1
+string , cofibmrm.evaluation , 1 , 1
+string , cofibmrm.format , 0 , 1
+Done!
