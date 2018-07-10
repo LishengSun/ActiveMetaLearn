@@ -20,4 +20,9 @@ make -f CofiRank-Makefile.mk CONF=Deploy (compile)
 See our [ipython notebook](https://github.com/LishengSun/ActiveMetaLearn/blob/master/DEMONSTRATION/performance-matrix-visualization.ipynb)
 
 ## III. Run experiments
-Uploading ...
+As described in the paper, our experiments have CofiRank as sub-routine. To reproduce these experiments, one needs to install CofiRank (as explained in sec. I).          
+Assume CofiRank is installed and compiled (as shown in cofirank/), then the experiments can be customized and run by
+```
+python run-experiment.py --performance_matrix M --select_strategy 'random'
+```
+Codes for experiments are pregressively uploaded ...
