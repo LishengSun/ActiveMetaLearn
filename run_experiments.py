@@ -51,15 +51,16 @@ class Best_so_far(object):
 
 	def _select_next_algorithm(self):
 		self.strategy = Strategy(self.M_train, self.M_test, self.total_num_algo, self.to_select_algo, self.selected_algo)
-		if self.select_strategy == 'random':
-			method_to_call = getattr(self.strategy, 'random')
-			result = method_to_call()
-			print result
-			self.next_algo = result
+		method_to_call = getattr(self.strategy, self.select_strategy)
+		self.next_algo = method_to_call()
 		return self.next_algo
 			
 
 	def _evaluate_next_algorithm(self):
+		"""
+		might be separated and more complicated later
+		"""
+
 		self.next_algo = self._select_next_algorithm()
 		########## ACTUALLY TRAIN AND TEST ##############
 		
@@ -98,23 +99,27 @@ if __name__ == '__main__':
 
 	import argparse
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--dataset_name", help="Name of meta dataset in DATASETS",
-	                    type=str)
-	parser.add_argument("--select_strategy", help="Strategy for selecting next algorithms, available choices are:\
+	parser.add_argument("-d", "--dataset_name", help="Name of meta dataset in DATASETS",
+	                    type=str, required=True)
+	parser.add_argument("-s", "--select_strategies", help="Strategies for selecting next algorithms, available choices are:\
 		random, simple_rank_with_median, active_meta_learning_with_cofirank, \
-		median_landmarks_with_1_cofirank",
-	                    type=str)
-	parser.add_argument("--global_norm", help="Whether to globally normalize the dataset",
-	                    type=bool)
+		median_landmarks_with_1_cofirank. You can choose one or more strategies to compare",
+	                    type=str, nargs='+', required=True)
+	parser.add_argument("-n", "--global_norm", help="Whether to globally normalize the dataset, default is True",
+	                    default=True, type=bool)
 
-	parser.add_argument("--results_dir", help="Path to save results",
-	                    type=str)
+	parser.add_argument("-rd", "--results_dir", help="Path to save results, default is the current dir",
+	                    default=os.getcwd(), type=str)
 	
 	args = parser.parse_args()
 	M_name = args.dataset_name
-	select_strategy = args.select_strategy
+	select_strategies = args.select_strategies
 	global_norm = args.global_norm
 	results_dir = args.results_dir
+
+	if not os.path.exists(results_dir): # create results_dir if not existed
+		os.makedirs(results_dir)
+    
 
 	data_dir = 'DATASETS'
 	M = np.loadtxt(os.path.join(data_dir, '%s/%s.data'%(M_name, M_name)))
@@ -144,19 +149,110 @@ if __name__ == '__main__':
 		}
 
 	################### leave 1 dataset out ###################
-	best_so_far_alltest = {}
-	for test_i in range(M.shape[0]):
-		print '############################ima looking at test ', test_i
-		M_train = np.copy(M)
-		M_train = np.delete(M_train, test_i, axis=0)
-		M_test = M[test_i, :]
-		Exp = Best_so_far(M_name, M_train, M_test, results_dir, select_strategy, CofiRank_setup=None, num_landmarks=0)
-		Exp.run_experiment()
-		best_so_far_alltest['test_'+str(test_i)] = Exp.best_so_far
-		json.dump(best_so_far_alltest, open(os.path.join(Exp.results_dir, \
-			Exp.M_name+'_%s_best_so_far_alltest.txt'%select_strategy),'w')) # always save results
+	################### plot setting ############################
+	fig, ax = plt.subplots()
+	plot_colors = {'random':'blue', 'simple_rank_with_median': 'green', \
+	'active_meta_learning_with_cofirank': 'red', 'median_landmarks_with_1_cofirank':'magenta'}
+	plot_marker = {'random': 's', 'simple_rank_with_median': '<', \
+	'active_meta_learning_with_cofirank': 's', 'median_landmarks_with_1_cofirank':'o'}
+	plot_makersize = {'random': 4, 'simple_rank_with_median': 8, \
+	'active_meta_learning_with_cofirank': 12, 'median_landmarks_with_1_cofirank':10}
+	plot_label = {'random': 'Random: median', 'simple_rank_with_median': 'SimpleRank w. median', \
+	'active_meta_learning_with_cofirank': 'Active_Meta_Learning w. CofiRank', \
+	'median_landmarks_with_1_cofirank': 'Median_LandMarks w. 1-CofiRank'}
+	# plot_markerfacecolor = {'random': 'none', 'simple_rank_with_median': 'none', 'active_meta_learning_with_cofirank':'none', }
+	plot_markeredgecolor = {'random': 'none', 'simple_rank_with_median': 'none', \
+	'active_meta_learning_with_cofirank':'red', 'median_landmarks_with_1_cofirank':'magenta'}
+	plot_markeredgewidth = {'random': None, 'simple_rank_with_median': None, \
+	'active_meta_learning_with_cofirank':2, 'median_landmarks_with_1_cofirank': 2}
+	plot_ymin = []
 
+	random_run_num = 10 # statistics of random is based on 1000 iterations
 
+	for stra in select_strategies:
+		print '================== STRA: %s ===================='%stra
+		best_so_far_alltest = {}
+		for test_i in range(M.shape[0]):
+			print '############################ima looking at test ', test_i
+			M_train = np.copy(M)
+			M_train = np.delete(M_train, test_i, axis=0)
+			M_test = M[test_i, :]
+			if stra == 'random':
+				best_so_far_random_test_i = []
+				for run in range(random_run_num):
+					Exp = Best_so_far(M_name, M_train, M_test, results_dir, stra, CofiRank_setup=None, num_landmarks=0)
+					Exp.run_experiment()
+					best_so_far_random_test_i.append(Exp.best_so_far)
+				best_so_far_alltest['test_'+str(test_i)] = best_so_far_random_test_i
+				
+			else:
+				Exp = Best_so_far(M_name, M_train, M_test, results_dir, stra, CofiRank_setup=CofiRank_setup, num_landmarks=3)
+				Exp.run_experiment()
+				best_so_far_alltest['test_'+str(test_i)] = Exp.best_so_far
+
+			json.dump(best_so_far_alltest, open(os.path.join(Exp.results_dir, \
+				Exp.M_name+'_%s_best_so_far_alltest.txt'%stra),'w')) # always save results
+
+		num_ds = len(best_so_far_alltest)
+		arr = np.array([best_so_far_alltest['test_'+str(i)] for i in range(num_ds)])
+		
+		if stra == 'random':
+			##### compute percentiles ########
+			random_Q5 = []
+			random_Q25 = []
+			random_Q75 = []
+			random_Q95 = []
+			random_Median = []
+			for ds_i in range(arr.shape[0]):
+				# print '==================random_Q5', 
+				# print random_Q5
+				random_Q5_i = np.nanpercentile(arr[ds_i,:,:], 5, axis=0)
+				random_Q25_i = np.nanpercentile(arr[ds_i,:,:], 25, axis=0)
+				random_Median_i = np.nanpercentile(arr[ds_i,:,:], 50, axis=0)
+				random_Q75_i = np.nanpercentile(arr[ds_i,:,:], 75, axis=0)
+				random_Q95_i = np.nanpercentile(arr[ds_i,:,:], 95, axis=0)
+				random_Q5.append(random_Q5_i)
+				random_Q25.append(random_Q25_i)
+				random_Median.append(random_Median_i)
+				random_Q75.append(random_Q75_i)
+				random_Q95.append(random_Q95_i)
+			random_Q5 = np.array(random_Q5).reshape(len(random_Q5),-1)	
+			random_Q25 = np.array(random_Q25).reshape(len(random_Q25),-1)	
+			random_Median = np.array(random_Median).reshape(len(random_Median),-1)	
+			random_Q75 = np.array(random_Q75).reshape(len(random_Q75),-1)	
+			random_Q95 = np.array(random_Q95).reshape(len(random_Q95),-1)
+			random_Q5 = np.nanmean(random_Q5, axis=0)	
+			random_Q25 = np.nanmean(random_Q25, axis=0)	
+			random_Median = np.nanmean(random_Median, axis=0)
+			random_Q75 = np.nanmean(random_Q75, axis=0)	
+			random_Q95 = np.nanmean(random_Q95, axis=0)	
+
+		
+			ax.plot(range(1,M.shape[1]+1), random_Median, color=plot_colors[stra], marker=plot_marker[stra],\
+			markeredgecolor=plot_markeredgecolor[stra], markeredgewidth=plot_markeredgewidth[stra], \
+			markersize=plot_makersize[stra], label=plot_label[stra])
+
+			ax.fill_between(range(1,M.shape[1]+1), random_Q5, random_Q25, alpha=.15, facecolor="blue", edgecolor="none", label='Random: 5-25% quantiles')
+			ax.fill_between(range(1,M.shape[1]+1), random_Q25, random_Median, alpha=.2, facecolor="blue", edgecolor="none", label='Random: 25-50%')
+			ax.fill_between(range(1,M.shape[1]+1), random_Median, random_Q75, alpha=.25, facecolor="blue", edgecolor="none", label='Random: 50-75%')
+			ax.fill_between(range(1,M.shape[1]+1), random_Q75, random_Q95, alpha=.3, facecolor="blue", edgecolor="none", label='Random: 75-95%')
+			plot_ymin += list(random_Median)
+			
+		else:
+			ax.plot(range(1,M.shape[1]+1), np.nanmean(arr, axis=0), color=plot_colors[stra], marker=plot_marker[stra],\
+			markeredgecolor=plot_markeredgecolor[stra], markeredgewidth=plot_markeredgewidth[stra], \
+			markersize=plot_makersize[stra], label=plot_label[stra])
+			plot_ymin += list(np.mean(arr, axis=0))
+
+	ax.set_xlabel('number of algorithms estimated so far', fontsize=15)
+	ax.set_ylabel('best performance so far', fontsize=15)
+	ymin = np.nanmin(plot_ymin)
+
+	ax.set_ylim(bottom=ymin-0.1)
+	
+	ax.set_title(M_name)
+	plt.savefig(os.path.join(results_dir, M_name+'_AVE_%i_r1000'%M.shape[0]))
+	plt.show()
 
 
 
