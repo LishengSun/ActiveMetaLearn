@@ -23,6 +23,6 @@ See our [ipython notebook](https://github.com/LishengSun/ActiveMetaLearn/blob/ma
 As described in the paper, our experiments have CofiRank as sub-routine. To reproduce these experiments, one needs to install CofiRank (as explained in sec. I).          
 Assume CofiRank is installed and compiled (as shown in cofirank/), then the experiments can be customized and run by
 ```
-python run-experiment.py --performance_matrix M --select_strategy 'random'
+python -i run_experiments.py --dataset_name 'artificial' --select_strategy 'random' --global_norm True --results_dir './'
 ```
 Codes for experiments are pregressively uploaded ...
