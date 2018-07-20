@@ -25,4 +25,7 @@ Assume CofiRank is installed and compiled (as shown in cofirank/), then the expe
 ```
 python -i run_experiments.py -d 'artificial' -s 'active_meta_learning_with_cofirank' 'random' 'simple_rank_with_median' -n True -rd '/RESULTS/'
 ```
+Plots, logging and scorse will be saved to /RESULTS/.
+
+
 Codes for experiments are pregressively uploaded ...
