@@ -6,9 +6,6 @@ import sys
 from os import path
 from subprocess import call
 
-# sys.path.append(path.abspath('../utils/'))
-# from utils import *
-
 from src.utils.standardize_matrix import standardize
 from src.utils.matrix_io import *
 from src.utils.plot_multi_bands import *
@@ -17,6 +14,11 @@ from src.strategies import Strategy
 import operator
 import json
 import seaborn as sns; sns.set(color_codes=True)
+
+
+
+
+
 
 
 class Best_so_far(object):
@@ -47,12 +49,14 @@ class Best_so_far(object):
 		self.best_so_far = []
 		self.test_known_values = {} # knownvalues = landmarks + esmated algos, keys=algo_interdit, values=known_perf
 		self.num_cofi_run = 0
+		self.current_rank = None
 
 
 	def _select_next_algorithm(self):
-		self.strategy = Strategy(self.M_train, self.M_test, self.total_num_algo, self.to_select_algo, self.selected_algo)
+		self.strategy = Strategy(self.M_name, self.M_train, self.M_test, self.total_num_algo, self.to_select_algo, self.selected_algo, \
+			self.Cofi, self.num_cofi_run, self.current_rank, self.num_landmarks, self.median_landmarks)
 		method_to_call = getattr(self.strategy, self.select_strategy)
-		self.next_algo = method_to_call()
+		self.next_algo, self.num_cofi_run, self.current_rank, self.median_landmarks = method_to_call()
 		return self.next_algo
 			
 
@@ -83,11 +87,11 @@ class Best_so_far(object):
 			if self.next_algo in self.to_select_algo:
 				self.to_select_algo.remove(self.next_algo)
 			if len(self.best_so_far)>0 and self.next_score <= self.best_so_far[-1]: # higher is better
-				print 'My next algo is < best so far, I include again best_so_far[-1]: ', self.best_so_far[-1]
+				logger.info('My next algo is < best so far, I include again best_so_far[-1]: %f'%(self.best_so_far[-1]))
 				self.best_so_far.append(self.best_so_far[-1])
 
 			else:
-				print 'My next score is the best so far, I include self.next_score: ', self.next_score
+				logger.info('My next score is the best so far, I include self.next_score: %f'%(self.next_score))
 				self.best_so_far.append(self.next_score)
 			# iteration += 1
 
@@ -126,7 +130,7 @@ if __name__ == '__main__':
 	if global_norm:
 		M = (M-np.nanmean(M))/np.nanstd(M)
 
-	CofiRank_dir = '/cofirank/' # this is the path in the 
+	CofiRank_dir = os.path.join(os.getcwd(), 'cofirank/') # this is the path in the 
 	CofiRank_setup = {'dir': CofiRank_dir, \
 		'config_dir':os.path.join(CofiRank_dir, 'config'), \
 		'config_file_train': M_name+'_train.cfg', \
@@ -147,6 +151,25 @@ if __name__ == '__main__':
 		'num_landmark': 3, \
 		'cofidimW': 10,
 		}
+
+
+	########### set up logging ################
+	import logging
+	# logging.basicConfig(level=logging.DEBUG)
+	logger = logging.getLogger('run_experiments_logging')
+	logger.setLevel(logging.DEBUG)
+	fh = logging.FileHandler(os.path.join(results_dir,'run_experiments_logging.log'), mode='w')# create a file handler
+	fh.setLevel(logging.DEBUG)
+
+	ch = logging.StreamHandler() # create console handler with a higher log level
+	ch.setLevel(logging.DEBUG) # create formatter and add it to the handlers
+
+	formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+	fh.setFormatter(formatter)
+	ch.setFormatter(formatter)
+
+	logger.addHandler(fh)# add the handlers to the logger
+	logger.addHandler(ch)
 
 	################### leave 1 dataset out ###################
 	################### plot setting ############################
@@ -170,10 +193,10 @@ if __name__ == '__main__':
 	random_run_num = 10 # statistics of random is based on 1000 iterations
 
 	for stra in select_strategies:
-		print '================== STRA: %s ===================='%stra
+		logger.info('================== NOW STRATEGY = : %s ===================='%stra)
 		best_so_far_alltest = {}
 		for test_i in range(M.shape[0]):
-			print '############################ima looking at test ', test_i
+			logger.debug('############################ima looking at test %s'%str(test_i))
 			M_train = np.copy(M)
 			M_train = np.delete(M_train, test_i, axis=0)
 			M_test = M[test_i, :]
@@ -249,8 +272,8 @@ if __name__ == '__main__':
 	ymin = np.nanmin(plot_ymin)
 
 	ax.set_ylim(bottom=ymin-0.1)
-	
 	ax.set_title(M_name)
+	plt.legend(loc='lower right')
 	plt.savefig(os.path.join(results_dir, M_name+'_AVE_%i_r1000'%M.shape[0]))
 	plt.show()
 
