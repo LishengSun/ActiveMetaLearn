@@ -1,9 +1,9 @@
 Starting up
-Configuration file used: config/ALLOpenML-Alors_train.cfg
+Configuration file used: config/artificial_train.cfg
 Evaluation Mode: WEAK
-Problem:: we have 76 rows and 292 columns in D
-Problem: Reading train data from data/lisheng-data/train/ALLOpenML-Alors_train.lsvm
-Problem: Reading test data from data/lisheng-data/train/ALLOpenML-Alors_test.lsvm
+Problem:: we have 50 rows and 20 columns in D
+Problem: Reading train data from data/lisheng-data/train/artificial_train.lsvm
+Problem: Reading test data from data/lisheng-data/train/artificial_test.lsvm
 NDCGEvaluator: k is bigger than Y.size1(). Using Y.size1() as k.
 DomainModelFactory::DomainModelFactory: Using REGRESSION
 COFIBMRM: User Phase started in iteration 0
@@ -17,7 +17,6 @@ Found better M in iteration 1
 COFIBMRM: User Phase started in iteration 2
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 2
-Found better M in iteration 2
 COFIBMRM: User Phase started in iteration 3
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 3
@@ -28,18 +27,15 @@ Found better M in iteration 4
 COFIBMRM: User Phase started in iteration 5
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 5
-Found better M in iteration 5
 COFIBMRM: User Phase started in iteration 6
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 6
-Found better M in iteration 6
 COFIBMRM: User Phase started in iteration 7
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 7
 COFIBMRM: User Phase started in iteration 8
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 8
-Found better M in iteration 8
 COFIBMRM: User Phase started in iteration 9
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 9
@@ -62,7 +58,6 @@ COFIBMRM: Movie Phase started in iteration 14
 COFIBMRM: User Phase started in iteration 15
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 15
-Found better M in iteration 15
 COFIBMRM: User Phase started in iteration 16
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 16
@@ -78,7 +73,6 @@ COFIBMRM: Movie Phase started in iteration 19
 COFIBMRM: User Phase started in iteration 20
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 20
-Found better M in iteration 20
 COFIBMRM: User Phase started in iteration 21
 COFIBMRM: UserPhase finished 
 COFIBMRM: Movie Phase started in iteration 21
@@ -115,10 +109,10 @@ Usage statistics of configuration fields:
 type , name , readCount, writeCount
 double , bmrm.epsilonTol , 0 , 1
 double , bmrm.gammaTol , 0 , 1
-double , bmrm.minOptimProgress , 2387 , 1
-double , bmrm.minProgress , 2387 , 1
-double , bmrm.minRelativeOptimProgress , 2387 , 1
-double , bmrm.minRelativeProgress , 2387 , 1
+double , bmrm.minOptimProgress , 1581 , 1
+double , bmrm.minProgress , 1581 , 1
+double , bmrm.minRelativeOptimProgress , 1581 , 1
+double , bmrm.minRelativeProgress , 1581 , 1
 double , cofi.adaptiveRegularization.uExponent , 0 , 2
 double , cofi.adaptiveRegularization.wExponent , 0 , 2
 double , cofi.allowedDivergence , 1 , 1
@@ -133,7 +127,7 @@ double , loss.weightedSoftMargin.positiveWeight , 0 , 1
 double , sgd.initialStepSize , 0 , 1
 double , sgd.minRelativeProgress , 0 , 1
 int    , bmrm.maxIter , 0 , 1
-int    , bmrm.maxNumberOfIterations , 2387 , 1
+int    , bmrm.maxNumberOfIterations , 1581 , 1
 int    , cofi.dimW , 1 , 2
 int    , cofi.eval.binary , 1 , 2
 int    , cofi.eval.brmse , 0 , 1
