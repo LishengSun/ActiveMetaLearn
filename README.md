@@ -1,6 +1,9 @@
 # ActivMetal
 Code for our paper 'ActivMetaL'
 
+# A updated version to fix technical issues is coming soon... Stay tuned! 
+
+
 ## I. Docker image
 We have built a Docker image to ease using CofiRank: [activmetal](https://hub.docker.com/r/lisesun/activmetal/) .          
 To use it, you need to first download CofiRank from [their website](https://github.com/markusweimer/cofirank), then run it inside a Docker container of our image.        
