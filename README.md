@@ -37,7 +37,7 @@ See our [ipython notebook](https://github.com/LishengSun/ActiveMetaLearn/blob/ma
       
 Assume CofiRank is installed and compiled, the experiments can be customized and run by
 ```
-python run_experiments.py -d artificial -s active_meta_learning_with_cofirank random -n True -rd /RESULTS/
+python run_experiments.py -d artificial -s active_meta_learning_with_cofirank -n True -rd /RESULTS/
 ```
 which will apply the strategy of active meta learning with cofirank (-s active_meta_learning_with_cofirank) on the artifical dataset (-d artificial) after a global normalisation (-n True) of the dataset, and save the results (plots, scores and logging files) to the indicated result directory /RESULTS/ (-rd /RESULTS/, please replace /RESULTS/ with an absolute path to the directory where you want to save the results.)
 
